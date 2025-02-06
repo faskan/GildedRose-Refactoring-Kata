@@ -12,8 +12,6 @@ npm install
 
 ## Run the unit tests from the Command-Line
 
-There are two unit test frameworks to choose from, Jest
-
 ```sh
 npm run test:jest
 ```

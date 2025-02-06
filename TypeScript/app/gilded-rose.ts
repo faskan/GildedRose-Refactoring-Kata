@@ -19,7 +19,7 @@ export class GildedRose {
 
   updateItem(item: Item) {
     if (item.name === "Sulfuras, Hand of Ragnaros") {
-      return item; // Legendary item, no changes
+      return; // Legendary item, no changes
     }
     item.sellIn -= 1;
 
@@ -37,7 +37,6 @@ export class GildedRose {
         item.quality = this.decreaseQuality(item.quality, item.sellIn);
         break;
     }
-    return new Item(item.name, item.sellIn, item.quality);
   }
 
   private updateAgedBrie(sellIn: number, quality: number) {
