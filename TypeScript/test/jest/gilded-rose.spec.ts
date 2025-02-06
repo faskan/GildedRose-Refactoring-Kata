@@ -26,6 +26,12 @@ describe('Gilded Rose', () => {
     expect(gildedRose.items[0].quality).toBe(31);
   });
 
+  test("Aged Bri quality never goes above 50", () => {
+    const gildedRose = new GildedRose([new Item("Aged Brie", 10, 50)]);
+    gildedRose.updateQuality();
+    expect(gildedRose.items[0].quality).toBe(50);
+  });
+
   test("Sulfuras does not change", () => {
     const gildedRose = new GildedRose([new Item("Sulfuras, Hand of Ragnaros", 5, 80)]);
     gildedRose.updateQuality();
