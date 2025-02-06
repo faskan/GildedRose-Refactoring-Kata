@@ -7,6 +7,12 @@ describe('Gilded Rose', () => {
     expect(items[0].name).toBe('foo');
   });
 
+  test("once sell date is past quality degrades twice as fast", () => {
+    const gildedRose = new GildedRose([new Item("Normal Item", 0, 20)]);
+    gildedRose.updateQuality();
+    expect(gildedRose.items[0].quality).toBe(18);
+  });
+
   test("normal item degrades in quality", () => {
     const gildedRose = new GildedRose([new Item("Normal Item", 10, 20)]);
     gildedRose.updateQuality();
@@ -24,6 +30,13 @@ describe('Gilded Rose', () => {
     const gildedRose = new GildedRose([new Item("Aged Brie", 10, 30)]);
     gildedRose.updateQuality();
     expect(gildedRose.items[0].quality).toBe(31);
+  });
+
+  // TODO Check - Requirement never says quality increases by 2 after sell date but implementation does
+  test("Aged Brie increases in quality even after sell date", () => {
+    const gildedRose = new GildedRose([new Item("Aged Brie", 0, 30)]);
+    gildedRose.updateQuality();
+    expect(gildedRose.items[0].quality).toBe(32);
   });
 
   test("Aged Bri quality never goes above 50", () => {
