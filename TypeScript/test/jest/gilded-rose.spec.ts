@@ -57,4 +57,11 @@ describe('Gilded Rose', () => {
     expect(gildedRose.items[0].quality).toBe(0);
   });
 
+  // new requirement
+  test("Conjured items degrade twice as fast", () => {
+    const gildedRose = new GildedRose([new Item("Conjured Mana Cake", 5, 10)]);
+    gildedRose.updateQuality();
+    expect(gildedRose.items[0].quality).toBe(8);
+  });
+
 });
