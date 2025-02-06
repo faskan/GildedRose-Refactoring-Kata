@@ -1,25 +1,18 @@
 export class Item {
-  name: string;
-  sellIn: number;
-  quality: number;
-
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
-  }
+  constructor(
+    public name: string,
+    public sellIn: number,
+    public quality: number
+  ) {}
 }
 
 export class GildedRose {
   static MAX_QUALITY = 50;
   static MIN_QUALITY = 0;
-  items: Array<Item>;
 
-  constructor(items = [] as Array<Item>) {
-    this.items = items;
-  }
+  constructor(public items: Item[] = []) {}
 
-  updateQuality(): Item[] {
+  updateQuality() {
     this.items.forEach((item: Item) => this.updateItem(item));
     return this.items;
   }
@@ -47,14 +40,11 @@ export class GildedRose {
     return new Item(item.name, item.sellIn, item.quality);
   }
 
-  updateAgedBrie(sellIn: number, quality: number) {
-    if(sellIn < 0) {
-      return this.increaseQuality(quality, 2);
-    }
-    return this.increaseQuality(quality);
+  private updateAgedBrie(sellIn: number, quality: number) {
+    return this.increaseQuality(quality, sellIn < 0 ? 2 : 1);
   }
 
-  updateBackstagePass(sellIn: number, quality: number) {
+  private updateBackstagePass(sellIn: number, quality: number) {
     if (sellIn < 0) {
       return GildedRose.MIN_QUALITY;
     } else if (sellIn < 5) {
@@ -66,14 +56,11 @@ export class GildedRose {
     }
   }
 
-  increaseQuality(quality: number, increment = 1) {
+  private increaseQuality(quality: number, increment = 1) {
     return Math.min(GildedRose.MAX_QUALITY, quality + increment);
   }
 
-  decreaseQuality(quality: number, sellIn: number, decrement = 1) {
-    if(sellIn < 0) {
-      return Math.max(GildedRose.MIN_QUALITY, quality - (decrement * 2));
-    }
-    return Math.max(GildedRose.MIN_QUALITY, quality - decrement);
+  private decreaseQuality(quality: number, sellIn: number, decrement = 1) {
+    return Math.max(GildedRose.MIN_QUALITY, quality - (sellIn < 0 ? decrement * 2 : decrement));
   }
 }
